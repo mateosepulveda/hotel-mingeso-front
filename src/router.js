@@ -30,8 +30,8 @@ export default new Router({
     },
     {
       path: '/rooms/create',
-      name: 'roomCRUD',
-      component: () => import('./views/RoomCRUD.vue')
+      name: 'roomCreate',
+      component: () => import('./views/RoomCreate.vue')
     }
   ]
 })
