@@ -1,5 +1,5 @@
 <template>
   <div class="container">
-    <h1>RoomCRUD page</h1>
+    <h1>RoomCreate page</h1>
   </div>
 </template>
