@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h1>Rack page</h1>
     <span class="table-wrapper">
 	    <b-table striped hover :items="items" :bordered="true" :responsive="true"></b-table>
 	</span>

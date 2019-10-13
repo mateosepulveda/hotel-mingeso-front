@@ -25,8 +25,8 @@ export default new Router({
     },
     {
       path: '/users/create',
-      name: 'userCRUD',
-      component: () => import('./views/UserCRUD.vue')
+      name: 'userCreate',
+      component: () => import('./views/UserCreate.vue')
     },
     {
       path: '/rooms/create',

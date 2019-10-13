@@ -1,13 +1,20 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/rack">Rack</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/users/create">UserCRUD</router-link> |
-      <router-link to="/rooms/create">RoomCRUD</router-link>
-    </div>
-    <router-view/>
+	<div id="app">
+		<div id="nav">
+			<b-navbar toggleable="sm" type="light" variant="light">
+				<b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
+				<b-navbar-brand to="/">Hotel App</b-navbar-brand>
+				<b-collapse id="nav-text-collapse" is-nav>
+					<b-navbar-nav>
+						<b-nav-item to="/rack">Rack</b-nav-item>
+						<b-nav-item to="/login">Login</b-nav-item>
+						<b-nav-item to="/users/create">New User</b-nav-item>
+						<b-nav-item to="/rooms/create">New Room</b-nav-item>
+					</b-navbar-nav>
+				</b-collapse>
+			</b-navbar>
+		</div>
+		<br><router-view/>
   </div>
 </template>
 
@@ -20,7 +27,6 @@
   color: #2c3e50;
 }
 #nav {
-  padding: 30px;
 }
 
 #nav a {
