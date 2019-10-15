@@ -33,6 +33,26 @@ export default new Router({
       path: '/rooms/manage',
       name: 'roomManage',
       component: () => import('./views/RoomManage.vue')
-    }
+    },
+    {
+      path: '/bookings/create',
+      name: 'bookingCreate',
+      component: () => import('./views/BookingCreate.vue')
+    },
+    {
+      path: '/bookings/update',
+      name: 'bookingUpdate',
+      component: () => import('./views/BookingUpdate.vue')
+    },
+    {
+      path: '/bookings/read',
+      name: 'bookingRead',
+      component: () => import('./views/BookingRead.vue')
+    },
+    {
+      path: '/bookings/delete',
+      name: 'bookingDelete',
+      component: () => import('./views/BookingDelete.vue')
+    },
   ]
 })

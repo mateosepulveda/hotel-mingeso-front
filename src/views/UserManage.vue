@@ -84,22 +84,23 @@
 
 <script>
 	import axios from 'axios'
+	axios.defaults.headers.post['Content-Type'] = 'application/json';
 	export default {
 		data() {
 			return {
-				userList: [],
+				users: [],
 				vpassword: '',
 				form: {
-					name: '',
-					email: '',
-					password: ''
+					username: '',
+					password: '',
+					admin: false
 				}
 			}
 		},
 		mounted () {
-			axios.get('http://157.230.231.153:27017/users/')
+			axios.get("http://localhost:8080/tingeso/users")
 			.then(
-				response => this.userList = response.data
+				response => this.users = response.data
 			)
 		},
 		methods: {
