@@ -7,7 +7,7 @@
 				header="Login"
 				header-tag="header"
 			>
-				<b-form @submit="onSubmit" v-if="show">
+				<b-form @submit="onSubmit">
 					<b-form-group
 						id="input-group-1"
 						label="Email address:"
@@ -52,8 +52,7 @@
 				form: {
 					email: '',
 					password: ''
-				},
-				show: true
+				}
 			}
 		},
 		methods: {
