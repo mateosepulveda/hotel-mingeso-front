@@ -7,6 +7,7 @@
 <script>
 // NOTES: Maybe we could add a dropdown list of floors to select a single floor, and then redraw the Gantt chart with only the rooms of that floor.
 import axios from 'axios'
+import {rest_ip} from "../router";
 export default {
     data() {
         return {
@@ -37,54 +38,6 @@ export default {
                         start: Date.UTC(2019, 11, 10),
                         end: Date.UTC(2019, 11, 23),
                         name: '508'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '509'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '601'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '602'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '603'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '604'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '605'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '606'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '607'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '608'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '609'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '701'
-                    }, {
-                        start: Date.UTC(2019, 11, 10),
-                        end: Date.UTC(2019, 11, 23),
-                        name: '702'
                     }
                     */
                 chart: {
@@ -167,7 +120,7 @@ export default {
                     max: 4,
                 },
             },
-            bookingsList: [{
+            bookingsList: [/*{
                 id: 3,
                 owner: 'Peter Smith',
                 startDate: '05/11/2019',
@@ -197,8 +150,8 @@ export default {
                 startDate: '28/10/2019',
                 endDate: '02/11/2019',
                 room: {number: '1101'},
-            }],
-            roomsList: [{
+            }*/],
+            roomsList: [/*{
                 id: 1,
                 number: '401',
             }, {
@@ -213,21 +166,19 @@ export default {
             }, {
                 id: 5,
                 number: '1101',
-            }],
+            }*/],
         }
     },
     methods: {
-        /*async*/ loadChart() {
+        async loadChart() {
 
-            // LOAD ALL ROOMS FROM ROOMSLIST (USE ASYNC())
+            // LOAD ALL ROOMS TO ROOMSLIST
 
-            /*
             try {
                 await this.getRoomsList()
             } catch(error) {
                 console.log(error)
             }
-            */
 
             this.roomsList.sort(this.compareRooms)
 
@@ -237,33 +188,30 @@ export default {
                     })
             }
 
-            // LOAD BOOKINGS FOR ROOMS FROM BOOKINGSLIST (USE ASYNC())
+            // LOAD BOOKINGS FOR ROOMS TO BOOKINGSLIST (USE ASYNC())
 
-            /*
-            axios.get('http://localhost:8080/bookings/getAll').then(response => {
+            axios.get(rest_ip + 'bookings/getAll').then(response => {
                 this.bookingsList = response.data
-                (...)
+
+                this.bookingsList.sort(this.compareBookings)
+
+                for (var booking of this.bookingsList) {
+                    var startDateUTC = this.dateStrToDateUTC(booking.startDate)
+                    var endDateUTC = this.dateStrToDateUTC(booking.endDate)
+
+                    this.chartOptions.series[0].data.push({
+                            name: booking.room.number,
+                            owner: booking.owner,
+                            bookingID: booking.id,
+                            start: startDateUTC,
+                            end: endDateUTC,
+                            startStr: booking.startDate,
+                            endStr: booking.endDate,
+                        })
+                }
+
+                this.chartOptions.rangeSelector.selected = 0
             })
-            */
-
-            this.bookingsList.sort(this.compareBookings)
-
-            for (var booking of this.bookingsList) {
-                var startDateUTC = this.dateStrToDateUTC(booking.startDate)
-                var endDateUTC = this.dateStrToDateUTC(booking.endDate)
-
-                this.chartOptions.series[0].data.push({
-                        name: booking.room.number,
-                        owner: booking.owner,
-                        bookingID: booking.id,
-                        start: startDateUTC,
-                        end: endDateUTC,
-                        startStr: booking.startDate,
-                        endStr: booking.endDate,
-                    })
-            }
-
-            this.chartOptions.rangeSelector.selected = 0
         },
 
         compareBookings(a, b) {
@@ -295,14 +243,14 @@ export default {
         dateStrToDateUTC(dateStr) {
             var dateArrayStr = dateStr.split("/")
             var dateDayInt = parseInt(dateArrayStr[0])
-            var dateMonthInt = parseInt(dateArrayStr[1])
+            var dateMonthInt = parseInt(dateArrayStr[1]) - 1
             var dateYearInt = parseInt(dateArrayStr[2])
             var dateUTC = Date.UTC(dateYearInt, dateMonthInt, dateDayInt)
             return dateUTC
         },
 
         getRoomsList() {
-            return axios.get('http://localhost:8080/rooms/getAll').then(response => {
+            return axios.get(rest_ip + 'rooms/').then(response => {
                 this.roomsList = response.data
             })
         },

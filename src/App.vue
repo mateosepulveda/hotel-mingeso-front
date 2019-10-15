@@ -9,6 +9,10 @@
 						<b-nav-item to="/rack" v-if='logged'>Rack</b-nav-item>
 						<b-nav-item to="/users/manage" v-if='logged'>Manage Users</b-nav-item>
 						<b-nav-item to="/rooms/manage" v-if='logged'>Manage Rooms</b-nav-item>
+						<b-nav-item to="/bookings/create">New Booking</b-nav-item>
+						<b-nav-item to="/bookings/update">Update Booking</b-nav-item>
+						<b-nav-item to="/bookings/read">List of Bookings</b-nav-item>
+						<b-nav-item to="/bookings/delete">Delete Bookings</b-nav-item>
 					</b-navbar-nav>
 					<b-navbar-nav class="ml-auto">
 						<b-nav-item to="/login">Login</b-nav-item>
