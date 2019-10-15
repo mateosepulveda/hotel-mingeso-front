@@ -100,14 +100,14 @@
 		mounted () {
 			axios.get("localhost:8080/tingeso/users")
 			.then(
-				response => this.users = response.data
+				response => this.users = response._embedded.users
 			)
 		},
 		methods: {
 			validate(evt) {
 				evt.preventDefault()
 				if (this.form.password == this.vpassword) {
-					alert(JSON.stringify(this.userList))
+					alert(JSON.stringify(this.users))
 				}
 				else {
 					alert('not valid')
