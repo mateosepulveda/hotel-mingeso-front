@@ -66,7 +66,7 @@
 					>
 					</b-form-input>
 					</b-form-group>
-					<b-button type="submit" variant="primary">Login</b-button>
+					<b-button type="submit" variant="primary">Add User</b-button>
 				</b-form>
 			</b-card>
 			</b-col>
@@ -76,6 +76,8 @@
 				header="User List"
 				header-tag="header"
 			>
+			<b-table striped borderless :items="users" :fields="fields">
+			</b-table>
 			</b-card>
 			</b-col>
 		</b-row>
@@ -85,10 +87,17 @@
 <script>
 	import axios from 'axios'
 	axios.defaults.headers.post['Content-Type'] = 'application/json';
+	axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 	export default {
 		data() {
 			return {
-				users: [],
+				fields: ['username', 'email'],
+				users: [
+					{username: 'mario', email: 'a@a.cl', password: 'abcd'},
+					{username: 'mario2', email: 'b@b.cl', password: 'abcd1'},
+					{username: 'mario3', email: 'c@c.cl', password: 'abcd2'},
+					{username: 'mario4', email: 'd@d.cl', password: 'abcd3'},
+				],
 				vpassword: '',
 				form: {
 					username: '',
@@ -98,7 +107,7 @@
 			}
 		},
 		mounted () {
-			axios.get("localhost:8080/tingeso/users")
+			axios.get("http://157.230.231.153:8080/tingeso/users")
 			.then(
 				response => this.users = response.data
 			)
