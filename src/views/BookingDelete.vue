@@ -60,9 +60,19 @@ import {rest_ip} from "../router";
 
 			},
 
-			deleteBooking(id) {
-				return axios.post(rest_ip + 'bookings/DeleteById/' + id)
+			async deleteBooking(id) {
+        try {
+            await this.deleteById()
+        } catch(error) {
+            console.log(error)
+        }
+
+				this.getBookingData()
 			},
+
+      deleteById() {
+        axios.post(rest_ip + 'bookings/DeleteById/' + id)
+      },
 		},
 
 	    created() {
