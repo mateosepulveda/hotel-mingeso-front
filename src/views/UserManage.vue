@@ -98,7 +98,7 @@
 			}
 		},
 		mounted () {
-			axios.get("http://localhost:8080/tingeso/users")
+			axios.get("localhost:8080/tingeso/users")
 			.then(
 				response => this.users = response.data
 			)
