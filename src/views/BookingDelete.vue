@@ -71,7 +71,7 @@ import {rest_ip} from "../router";
 			},
 
       deleteById() {
-        axios.post(rest_ip + 'bookings/DeleteById/' + id)
+        axios.post(rest_ip + 'bookings/deleteById/' + id)
       },
 		},
 
