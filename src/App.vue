@@ -6,9 +6,9 @@
 				<b-navbar-brand to="/">Hotel App</b-navbar-brand>
 				<b-collapse id="nav-text-collapse" is-nav>
 					<b-navbar-nav>
-						<b-nav-item to="/rack">Rack</b-nav-item>
-						<b-nav-item to="/users/manage">Manage Users</b-nav-item>
-						<b-nav-item to="/rooms/manage">Manage Rooms</b-nav-item>
+						<b-nav-item to="/rack" v-if='logged'>Rack</b-nav-item>
+						<b-nav-item to="/users/manage" v-if='logged'>Manage Users</b-nav-item>
+						<b-nav-item to="/rooms/manage" v-if='logged'>Manage Rooms</b-nav-item>
 					</b-navbar-nav>
 					<b-navbar-nav class="ml-auto">
 						<b-nav-item to="/login">Login</b-nav-item>

@@ -1,7 +1,6 @@
 <template>
 	<div class="container-fluid">
 		<b-row>
-			<b-col></b-col>
 			<b-col>
 			<b-card
 				header="Create New User"
@@ -71,15 +70,24 @@
 				</b-form>
 			</b-card>
 			</b-col>
-			<b-col></b-col>
+
+			<b-col>
+			<b-card
+				header="User List"
+				header-tag="header"
+			>
+			</b-card>
+			</b-col>
 		</b-row>
 	</div>
 </template>
 
 <script>
+	import axios from 'axios'
 	export default {
 		data() {
 			return {
+				userList: [],
 				vpassword: '',
 				form: {
 					name: '',
@@ -88,11 +96,17 @@
 				}
 			}
 		},
+		mounted () {
+			axios.get('http://157.230.231.153:27017/users/')
+			.then(
+				response => this.userList = response.data
+			)
+		},
 		methods: {
 			validate(evt) {
 				evt.preventDefault()
 				if (this.form.password == this.vpassword) {
-					alert(JSON.stringify(this.form))
+					alert(JSON.stringify(this.userList))
 				}
 				else {
 					alert('not valid')
