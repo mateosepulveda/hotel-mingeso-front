@@ -20,24 +20,19 @@ export default new Router({
       component: () => import('./views/Login.vue')
     },
     {
-      path: '/createRoom',
-      name: 'create-room',
-      component: () => import('./views/createRoom.vue')
-    },
-    {
       path: '/rack',
       name: 'rack',
       component: () => import('./views/Rack.vue')
     },
     {
-      path: '/users/create',
-      name: 'userCreate',
-      component: () => import('./views/UserCreate.vue')
+      path: '/users/manage',
+      name: 'userManage',
+      component: () => import('./views/UserManage.vue')
     },
     {
-      path: '/rooms/create',
-      name: 'roomCreate',
-      component: () => import('./views/RoomCreate.vue')
+      path: '/rooms/manage',
+      name: 'roomManage',
+      component: () => import('./views/RoomManage.vue')
     }
   ]
 })

@@ -59,9 +59,8 @@
                 
             }
         },
-        created(){
+        created() {
           this.retrieveRooms();
-          
         },
         methods:{
            info(){
@@ -74,7 +73,7 @@
          mounted(){
         this.retrieveData()
     },
-retrieveRooms(){
+    retrieveRooms(){
               this.axios.get(rest_ip+'rooms/')
               .then((rooms) => this.volunteersTask(rooms.data))
               .catch((e) => alert(e))
@@ -82,7 +81,6 @@ retrieveRooms(){
           volunteersTask(rooms){
             let i = 0;
             while (i < rooms.length){
-                
                 this.room.push({
                     id: rooms[i].id,
                     number: rooms[i].number,
@@ -91,7 +89,6 @@ retrieveRooms(){
                     price:rooms[i].price,
                     ocuppied:"ocupado"
                 });
-
                 i+=1;
             }
         },  

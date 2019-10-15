@@ -7,9 +7,11 @@
 				<b-collapse id="nav-text-collapse" is-nav>
 					<b-navbar-nav>
 						<b-nav-item to="/rack">Rack</b-nav-item>
+						<b-nav-item to="/users/manage">Manage Users</b-nav-item>
+						<b-nav-item to="/rooms/manage">Manage Rooms</b-nav-item>
+					</b-navbar-nav>
+					<b-navbar-nav class="ml-auto">
 						<b-nav-item to="/login">Login</b-nav-item>
-						<b-nav-item to="/users/create">New User</b-nav-item>
-						<b-nav-item to="/rooms/create">New Room</b-nav-item>
 					</b-navbar-nav>
 				</b-collapse>
 			</b-navbar>
@@ -17,6 +19,19 @@
 		<br><router-view/>
   </div>
 </template>
+
+<script>
+	export default {
+		data() {
+			return {
+				user: {
+					name: ''
+				},
+				logged: true
+			}
+		}
+	}
+</script>
 
 <style>
 #app {
