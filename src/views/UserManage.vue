@@ -100,7 +100,7 @@
 		mounted () {
 			axios.get("localhost:8080/tingeso/users")
 			.then(
-				response => this.users = response._embedded.users
+				response => this.users = response.data
 			)
 		},
 		methods: {
