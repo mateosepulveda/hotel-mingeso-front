@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+export const rest_ip = "http://localhost:8080/";
 
 Vue.use(Router)
 
@@ -24,14 +25,14 @@ export default new Router({
       component: () => import('./views/Rack.vue')
     },
     {
-      path: '/users/create',
-      name: 'userCreate',
-      component: () => import('./views/UserCreate.vue')
+      path: '/users/manage',
+      name: 'userManage',
+      component: () => import('./views/UserManage.vue')
     },
     {
-      path: '/rooms/create',
-      name: 'roomCreate',
-      component: () => import('./views/RoomCreate.vue')
+      path: '/rooms/manage',
+      name: 'roomManage',
+      component: () => import('./views/RoomManage.vue')
     }
   ]
 })
