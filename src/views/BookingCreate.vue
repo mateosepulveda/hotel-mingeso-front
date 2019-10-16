@@ -78,6 +78,7 @@
 					<b-button type="submit" variant="primary">Add booking</b-button>
 					</b-form-group>
 				</b-form>
+				<b-button type="submit" @click="reset" variant="primary">Reset fields</b-button>
 			</b-card>
 			</b-col>
 			<b-col></b-col>
@@ -247,7 +248,19 @@ import {rest_ip} from "../router";
 				this.selectedRoom = ''
 
 				this.availableRoomNumbersList = []
+
+				alert("The booking has been created.")
 			},
+
+			reset() {
+				this.form.owner = ''
+				this.form.startDate = ''
+				this.form.endDate = ''
+				this.bookingsListForm = []
+				this.bookingsListFormDisplay = []
+				this.availableRoomNumbersList = []
+				this.selectedRoom = ''
+			}
 		},
 
 	    created() {

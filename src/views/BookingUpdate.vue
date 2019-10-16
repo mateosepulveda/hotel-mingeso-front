@@ -98,7 +98,10 @@
           <b-form-group>
           <b-button type="submit" variant="primary">Save update</b-button>
           </b-form-group>
-        </b-form>
+        </b-form>        
+        <b-form-group>
+        </b-form-group>
+        <b-button type="submit" @click="cancel" variant="primary">Cancel</b-button>
       </b-card>
       </b-col>
     </b-row>
@@ -269,6 +272,11 @@ import {rest_ip} from "../router";
       },
 
       saveUpdateBooking(evt) {
+        if (this.bookingUpdating['ID'] == '---') {
+          alert("No booking is selected.")
+          return
+        }
+
         evt.preventDefault()
 
         var bookingUpdated = this.bookingUpdating
@@ -291,6 +299,8 @@ import {rest_ip} from "../router";
 
         axios.put(rest_ip + 'bookings/update/' + bookingUpdated.id, bookingUpdated)
 
+        alert("The booking has been updated.")
+
         this.form.owner = ''
         this.form.startDate = ''
         this.form.endDate = ''
@@ -304,6 +314,21 @@ import {rest_ip} from "../router";
 
         this.getBookingDataTable()
       },
+
+      cancel() {
+        this.form.owner = ''
+        this.form.startDate = ''
+        this.form.endDate = ''
+        this.selectedRoom = ''
+        this.availableRoomNumbersList = []
+        this.bookingsListActive = []
+        this.bookingUpdating = {ID: '---'}
+        this.bookingsList = []
+        this.roomNumbersList = []
+        this.roomsList = []
+
+        this.getBookingDataTable()
+      }
     },
 
       created() {
