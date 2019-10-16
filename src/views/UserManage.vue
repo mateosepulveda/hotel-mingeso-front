@@ -92,12 +92,7 @@
 		data() {
 			return {
 				fields: ['username', 'email'],
-				users: [
-					{username: 'mario', email: 'a@a.cl', password: 'abcd'},
-					{username: 'mario2', email: 'b@b.cl', password: 'abcd1'},
-					{username: 'mario3', email: 'c@c.cl', password: 'abcd2'},
-					{username: 'mario4', email: 'd@d.cl', password: 'abcd3'},
-				],
+				users: [],
 				vpassword: '',
 				form: {
 					username: '',
@@ -107,7 +102,7 @@
 			}
 		},
 		mounted () {
-			axios.get("http://157.230.231.153:8080/tingeso/users")
+			axios.get("http://localhost:8080/tingeso/users")
 			.then(
 				response => this.users = response.data
 			)
