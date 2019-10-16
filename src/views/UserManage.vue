@@ -6,15 +6,15 @@
 				header="Create New User"
 				header-tag="header"
 			>
-				<b-form @submit="validate">
+				<b-form @submit="validate" @reset="reset" v-if="show">
 					<b-form-group
 						id="input-group-1"
-						label="Name:"
+						label="Username:"
 						label-for="input-1"
 					>
 					<b-form-input
 						id="input-1"
-						v-model="form.name"
+						v-model="form.username"
 						type="name"
 						required
 						placeholder="e.g. John Smith"
@@ -29,7 +29,7 @@
 					>
 					<b-form-input
 						id="input-2"
-						v-model="form.email"
+						v-model="form.mail"
 						type="email"
 						required
 						placeholder="e. g. johnsmith@example.com"
@@ -66,6 +66,13 @@
 					>
 					</b-form-input>
 					</b-form-group>
+
+					<b-form-group>
+					<b-form-checkbox v-model="form.admin" name="check-button" switch>
+						Admin
+					</b-form-checkbox>
+					</b-form-group>
+
 					<b-button type="submit" variant="primary">Add User</b-button>
 				</b-form>
 			</b-card>
@@ -95,9 +102,11 @@
 				vpassword: '',
 				form: {
 					username: '',
+					mail: '',
 					password: '',
 					admin: false
-				}
+				},
+				show: true
 			}
 		},
 		mounted () {
@@ -113,12 +122,24 @@
 			validate(evt) {
 				evt.preventDefault()
 				if (this.form.password == this.vpassword) {
-					alert(JSON.stringify(this.users))
+					alert('User created')
+					return axios.post(rest_ip + 'users/', this.form).then(reset())
 				}
 				else {
 					alert('not valid')
 				}
 			},
+			reset(evt) {
+				evt.preventDefault()
+				this.form.username = ''
+				this.form.mail = ''
+				this.form.password = ''
+				this.form.admin = false
+				this.show = false
+				this.$nextTick(() => {
+				this.show = true
+				})
+			}
 		}
 	}
 </script>
