@@ -35,7 +35,6 @@
 						v-model="form.startDate"
 						type="date"
 						format="dateFormat"
-						required
 						@change="startDateChange"
 					>
 					</b-form-input>
@@ -51,7 +50,6 @@
 						v-model="form.endDate"
 						type="date"
 						format="dateFormat"
-						required
 						@change="endDateChange"
 					>
 					</b-form-input>
@@ -210,50 +208,45 @@ import {rest_ip} from "../router";
 
 			submitBooking(evt) {
 				evt.preventDefault()
-            	return axios.post(rest_ip + 'bookings/create', this.bookingsListForm)
+				if (this.form.bookingsListForm.length > 0) {
+            		return axios.post(rest_ip + 'bookings/create', this.form.bookingsListForm)
+				}
 			},
 
 			submitRoomForBooking(evt) {
 				evt.preventDefault()
 
-				if ((this.form.endDate == '') || (this.form.startDate == '') || (this.selectedRoom == '')) {
-					return
-				}
+				var roomObject = {}
 
-				if (this.form.endDate < this.form.startDate) {
-					this.form.startDate = ''
-					this.form.endDate = ''
-				}
-				else {
-					var roomObject = {}
+				for (var room of this.roomsList) {
+					if (room.number.toString() == this.selectedRoom) {
+						roomObject = room
+						break
+					}
+	            }
 
-					for (var room of this.roomsList) {
-						if (room.number.toString() == this.selectedRoom) {
-							roomObject = room
-						}
-		            }
+	            var startDateFormatted = this.form.startDate.substring(8,10) + '/' + this.form.startDate.substring(5,7) + '/' + this.form.startDate.substring(0,4)
+	            var endDateFormatted = this.form.endDate.substring(8,10) + '/' + this.form.endDate.substring(5,7) + '/' + this.form.endDate.substring(0,4)
 
-		            var startDateFormatted = this.form.startDate.substring(8,10) + '/' + this.form.startDate.substring(5,7) + '/' + this.form.startDate.substring(0,4)
-		            var endDateFormatted = this.form.endDate.substring(8,10) + '/' + this.form.endDate.substring(5,7) + '/' + this.form.endDate.substring(0,4)
+				this.form.bookingsListForm.push({
+					'owner': this.form.owner,
+					'startDate': startDateFormatted,
+					'endDate': endDateFormatted,
+					'room': roomObject
+				})
 
-					this.form.bookingsListForm.push({
-						owner: this.form.owner,
-						startDate: startDateFormatted,
-						endDate: endDateFormatted,
-						room: roomObject
-					})
+				this.form.bookingsListFormDisplay.push({
+					startDate: startDateFormatted,
+					endDate: endDateFormatted,
+					room: roomObject.number,
+				})
 
-					this.form.bookingsListFormDisplay.push({
-						startDate: startDateFormatted,
-						endDate: endDateFormatted,
-						room: roomObject.number,
-					})
+				this.form.startDate = ''
+				this.form.endDate = ''
 
-					this.form.startDate = ''
-					this.form.endDate = ''
+				this.selectedRoom = ''
 
-					this.selectedRoom = ''
-				}
+				this.availableRoomNumbersList = []
 			},
 		},
 
