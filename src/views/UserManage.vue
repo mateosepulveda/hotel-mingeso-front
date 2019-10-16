@@ -85,9 +85,7 @@
 </template>
 
 <script>
-	import axios from 'axios'
-	axios.defaults.headers.post['Content-Type'] = 'application/json';
-	axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+	import http from "../http-common";
 	export default {
 		data() {
 			return {
@@ -102,10 +100,13 @@
 			}
 		},
 		mounted () {
-			axios.get("http://localhost:8080/tingeso/users")
-			.then(
-				response => this.users = response.data
-			)
+			http.get("users").then(response => {
+			this.users = response.data;
+			console.log(response.data);
+			})
+			.catch(e => {
+			console.log(e);
+			});
 		},
 		methods: {
 			validate(evt) {
