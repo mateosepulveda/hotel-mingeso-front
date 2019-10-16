@@ -23,7 +23,7 @@
                 <td>{{ booking['Room']}}</td>
                 <td>
                   <div class="btn-group" role="group">
-                    <button type="button" v-on:click="updateBookingActivate(booking.ID)" class="btn btn-primary btn-sm">Update</button>
+                    <button type="button" v-on:click="updateBookingActivate(booking.FullID)" class="btn btn-primary btn-sm">Update</button>
                   </div>
                 </td>
               </tr>
@@ -98,9 +98,7 @@
           <b-form-group>
           <b-button type="submit" variant="primary">Save update</b-button>
           </b-form-group>
-        </b-form>        
-        <b-form-group>
-        </b-form-group>
+        </b-form>
         <b-button type="submit" @click="cancel" variant="primary">Cancel</b-button>
       </b-card>
       </b-col>
@@ -145,22 +143,25 @@ import {rest_ip} from "../router";
                   var bookingsListFull = response.data
                   for (var booking of bookingsListFull) {
                     var objectBooking = new Object()
-                    objectBooking['ID'] = booking.id
+                    objectBooking['ID'] = booking.id.substring(booking.id.length - 5)
                     objectBooking['Owner'] = booking.owner
                     objectBooking['Start Date'] = booking.startDate
                     objectBooking['End Date'] = booking.endDate
-                    objectBooking['Room'] = booking.room.number
+                    if (booking.room != null) {
+                      objectBooking['Room'] = booking.room.number.toString()
+                    }
+                    objectBooking['FullID'] = booking.id
                     this.bookingsList.push(objectBooking)
                   }
               })
 
       },
 
-      updateBookingActivate(id) {
+      updateBookingActivate(fullID) {
         var i = 0
         var selectedRoomTemp = ''
         for (var booking of this.bookingsList) {
-          if (id == booking['ID']) {
+          if (fullID == booking['FullID']) {
             this.bookingUpdating = booking
             this.form.owner = booking['Owner']
 
@@ -186,13 +187,8 @@ import {rest_ip} from "../router";
         for (var booking of this.bookingsListActive) {
           if (moment(booking['Start Date'], 'DD-MM-YYYY').isBetween(this.form.startDate, this.form.endDate) || (moment(booking['End Date'], 'DD-MM-YYYY').isBetween(this.form.startDate, this.form.endDate))) {
 
-            console.log("A")
-            
             var i = 0
             for (var room of this.availableRoomNumbersList) {
-              console.log(room.value.toString())
-              console.log(booking.room.number.toString())
-              console.log('---')
               if (room.value.toString() == booking.room.number.toString()) {
                 this.availableRoomNumbersList.splice(i,1)
                 break
@@ -286,16 +282,16 @@ import {rest_ip} from "../router";
 
         var roomUpdated = ''
 
-        if (this.form.selectedRoom != '') {
+        if (this.selectedRoom != '') {
           for (var room of this.roomsList) {
-            if (room.number.toString() == this.form.selectedRoom) {
+            if (room.number.toString() == this.selectedRoom) {
               roomUpdated = room
               break
             }
           }
         }
 
-        bookingUpdated = {id: this.bookingUpdating['ID'], owner: this.form.owner, startDate: startDateFormatted, endDate: endDateFormatted, room: roomUpdated}
+        bookingUpdated = {id: this.bookingUpdating['FullID'], owner: this.form.owner, startDate: startDateFormatted, endDate: endDateFormatted, room: roomUpdated}
 
         axios.put(rest_ip + 'bookings/update/' + bookingUpdated.id, bookingUpdated)
 

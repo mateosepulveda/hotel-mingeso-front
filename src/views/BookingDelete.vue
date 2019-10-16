@@ -23,7 +23,7 @@
               <td>{{ booking['Room']}}</td>
               <td>
                 <div class="btn-group" role="group">
-                  <button type="button" v-on:click="deleteBooking(booking.ID)" class="btn btn-danger btn-sm">Delete</button>
+                  <button type="button" v-on:click="deleteBooking(booking.FullID)" class="btn btn-danger btn-sm">Delete</button>
                 </div>
               </td>
             </tr>
@@ -50,11 +50,14 @@ import {rest_ip} from "../router";
 	                var bookingsListFull = response.data
 	                for (var booking of bookingsListFull) {
 	                	var objectBooking = new Object()
-	                	objectBooking['ID'] = booking.id
+	                	objectBooking['ID'] = booking.id.substring(booking.id.length - 5)
 	                	objectBooking['Owner'] = booking.owner
 	                	objectBooking['Start Date'] = booking.startDate
 	                	objectBooking['End Date'] = booking.endDate
-	                	objectBooking['Room'] = booking.room.number
+                    if (booking.room != null) {
+                      objectBooking['Room'] = booking.room.number.toString()
+                    }
+                    objectBooking['FullID'] = booking.id
 	                	objectBooking['Delete'] = ''
 	                	this.bookingsList.push(objectBooking)
 	                }
