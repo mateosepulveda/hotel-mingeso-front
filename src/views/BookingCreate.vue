@@ -57,7 +57,7 @@
 
 					<b-form-group
 						id="input-group-4"
-						label=""
+						label="Room:"
 						label-for="input-4"
 					>
 					<b-form-select v-model="selectedRoom" id="roomDropdown" text="Select a room" :options="availableRoomNumbersList">
@@ -78,6 +78,7 @@
 					<b-button type="submit" variant="primary">Add booking</b-button>
 					</b-form-group>
 				</b-form>
+				<b-button type="submit" @click="reset" variant="primary">Reset fields</b-button>
 			</b-card>
 			</b-col>
 			<b-col></b-col>
@@ -111,7 +112,7 @@ import {rest_ip} from "../router";
 		methods: {
 			async getBookingData() {
 
-	            // LOAD ALL ROOMS FROM ROOMSLIST
+	            // LOAD ALL ROOMS ON ROOMSLIST
 
 	            try {
 	                await this.getRoomsList()
@@ -155,7 +156,7 @@ import {rest_ip} from "../router";
 		    },
 
 		    startDateChange(evt) {
-		    	if (this.form.endDate != '') {
+		    	if ((this.form.startDate != '') && (this.form.endDate != '')) {
 		    		this.availableRoomNumbersList = this.roomNumbersList.slice()
 
 		    		for (var booking of this.bookingsList) {
@@ -175,7 +176,7 @@ import {rest_ip} from "../router";
 		    },
 
 		    endDateChange(evt) {
-		    	if (this.form.endDate != '') {
+		    	if ((this.form.startDate != '') && (this.form.endDate != '')) {
 		    		this.availableRoomNumbersList = this.roomNumbersList.slice()
 		    		console.log(this.roomNumbersList)
 
@@ -247,7 +248,19 @@ import {rest_ip} from "../router";
 				this.selectedRoom = ''
 
 				this.availableRoomNumbersList = []
+
+				alert("The booking has been created.")
 			},
+
+			reset() {
+				this.form.owner = ''
+				this.form.startDate = ''
+				this.form.endDate = ''
+				this.bookingsListForm = []
+				this.bookingsListFormDisplay = []
+				this.availableRoomNumbersList = []
+				this.selectedRoom = ''
+			}
 		},
 
 	    created() {

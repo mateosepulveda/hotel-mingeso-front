@@ -9,6 +9,7 @@
               <th scope="col">Owner</th>
               <th scope="col">Start Date</th>
               <th scope="col">End Date</th>
+              <th scope="col">Room</th>
               <th scope="col">Delete</th>
               <th></th>
             </tr>
@@ -19,6 +20,7 @@
               <td>{{ booking['Owner'] }}</td>
               <td>{{ booking['Start Date']}}</td>
               <td>{{ booking['End Date']}}</td>
+              <td>{{ booking['Room']}}</td>
               <td>
                 <div class="btn-group" role="group">
                   <button type="button" v-on:click="deleteBooking(booking.ID)" class="btn btn-danger btn-sm">Delete</button>
@@ -62,16 +64,22 @@ import {rest_ip} from "../router";
 
 			async deleteBooking(id) {
         try {
-            await this.deleteById()
+            await this.deleteById(id)
         } catch(error) {
             console.log(error)
         }
 
-				this.getBookingData()
+        setTimeout(() => {
+          this.bookingsList = []
+
+          this.getBookingData()
+
+          alert("The booking has been deleted.")
+        }, 2000)
 			},
 
-      deleteById() {
-        axios.post(rest_ip + 'bookings/deleteById/' + id)
+      deleteById(id) {
+        axios.delete(rest_ip + 'bookings/deleteById/' + id)
       },
 		},
 

@@ -117,7 +117,7 @@ export default {
                         enabled: true,
                         showFull: false,
                     },
-                    max: 4,
+                    max: 2,
                 },
             },
             bookingsList: [/*{
