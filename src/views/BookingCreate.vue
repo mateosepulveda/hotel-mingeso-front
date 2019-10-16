@@ -57,7 +57,7 @@
 
 					<b-form-group
 						id="input-group-4"
-						label=""
+						label="Room:"
 						label-for="input-4"
 					>
 					<b-form-select v-model="selectedRoom" id="roomDropdown" text="Select a room" :options="availableRoomNumbersList">
@@ -111,7 +111,7 @@ import {rest_ip} from "../router";
 		methods: {
 			async getBookingData() {
 
-	            // LOAD ALL ROOMS FROM ROOMSLIST
+	            // LOAD ALL ROOMS ON ROOMSLIST
 
 	            try {
 	                await this.getRoomsList()
@@ -155,7 +155,7 @@ import {rest_ip} from "../router";
 		    },
 
 		    startDateChange(evt) {
-		    	if (this.form.endDate != '') {
+		    	if ((this.form.startDate != '') && (this.form.endDate != '')) {
 		    		this.availableRoomNumbersList = this.roomNumbersList.slice()
 
 		    		for (var booking of this.bookingsList) {
@@ -175,7 +175,7 @@ import {rest_ip} from "../router";
 		    },
 
 		    endDateChange(evt) {
-		    	if (this.form.endDate != '') {
+		    	if ((this.form.startDate != '') && (this.form.endDate != '')) {
 		    		this.availableRoomNumbersList = this.roomNumbersList.slice()
 		    		console.log(this.roomNumbersList)
 
