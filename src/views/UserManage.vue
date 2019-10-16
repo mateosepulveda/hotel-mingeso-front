@@ -85,11 +85,12 @@
 </template>
 
 <script>
-	import http from "../../http-common";
+	import {rest_ip} from "../router";
+	import axios from 'axios'
 	export default {
 		data() {
 			return {
-				fields: ['username', 'email'],
+				fields: ['username', 'mail'],
 				users: [],
 				vpassword: '',
 				form: {
@@ -100,7 +101,7 @@
 			}
 		},
 		mounted () {
-			http.get("/users").then(response => {
+			axios.get(rest_ip + 'users/').then(response => {
 			this.users = response.data;
 			console.log(response.data);
 			})
