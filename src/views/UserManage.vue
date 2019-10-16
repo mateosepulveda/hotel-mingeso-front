@@ -100,7 +100,7 @@
 			}
 		},
 		mounted () {
-			http.get("users").then(response => {
+			http.get("/users").then(response => {
 			this.users = response.data;
 			console.log(response.data);
 			})
