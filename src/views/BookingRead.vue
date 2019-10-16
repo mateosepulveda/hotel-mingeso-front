@@ -27,13 +27,16 @@ import {rest_ip} from "../router";
 	                var bookingsListFull = response.data
 	                for (var booking of bookingsListFull) {
 	                	var objectBooking = new Object()
-	                	objectBooking['ID'] = booking.id
+	                	objectBooking['ID'] = booking.id.substring(booking.id.length - 5)
 	                	objectBooking['Owner'] = booking.owner
 	                	objectBooking['Start Date'] = booking.startDate
 	                	objectBooking['End Date'] = booking.endDate
-	                	objectBooking['Room'] = booking.room.number
+	                	if (booking.room != null) {
+	                		objectBooking['Room'] = booking.room.number.toString()
+	                	}
 	                	this.bookingsList.push(objectBooking)
 	                }
+	                console.log(this.bookingsList)
 	            })
 
 			},

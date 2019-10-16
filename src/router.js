@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-export const rest_ip = "http://localhost:8080/";
+export const rest_ip = "http://tingeso.tk:8080/tingeso/";
 
 Vue.use(Router)
 

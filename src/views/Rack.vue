@@ -98,7 +98,7 @@ export default {
                         var text = '';
                         text = text.concat('<b>Room:</b> ' + this.point.name + '<br>');
                         text = text.concat('<b>Booked by:</b> ' + this.point.owner + '<br>');
-                        text = text.concat('<b>Booking ID:</b> ' + this.point.bookingID + '<br>');
+                        text = text.concat('<b>Booking ID:</b> ' + this.point.bookingID.substring(this.point.bookingID.length - 5) + '<br>');
                         text = text.concat('<b>Start date:</b> ' + this.point.startStr + '<br>');
                         text = text.concat('<b>End date:</b> ' + this.point.endStr);
                         return text;
@@ -184,7 +184,7 @@ export default {
 
             for (var room of this.roomsList) {
                 this.chartOptions.series[0].data.push({
-                        name: room.number,
+                        name: room.number.toString(),
                     })
             }
 
@@ -193,14 +193,14 @@ export default {
             axios.get(rest_ip + 'bookings/getAll').then(response => {
                 this.bookingsList = response.data
 
-                this.bookingsList.sort(this.compareBookings)
+                console.log(this.bookingsList)
 
                 for (var booking of this.bookingsList) {
                     var startDateUTC = this.dateStrToDateUTC(booking.startDate)
                     var endDateUTC = this.dateStrToDateUTC(booking.endDate)
 
                     this.chartOptions.series[0].data.push({
-                            name: booking.room.number,
+                            name: booking.room.number.toString(),
                             owner: booking.owner,
                             bookingID: booking.id,
                             start: startDateUTC,

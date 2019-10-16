@@ -210,8 +210,19 @@ import {rest_ip} from "../router";
 			submitBooking(evt) {
 				evt.preventDefault()
 				if (this.form.bookingsListForm.length > 0) {
+					alert("The booking has been created.")
             		return axios.post(rest_ip + 'bookings/create', this.form.bookingsListForm)
+				} else {
+					alert("No rooms have been booked.")
 				}
+
+				this.form.owner = ''
+				this.form.startDate = ''
+				this.form.endDate = ''
+				this.bookingsListForm = []
+				this.bookingsListFormDisplay = []
+				this.availableRoomNumbersList = []
+				this.selectedRoom = ''
 			},
 
 			submitRoomForBooking(evt) {
@@ -249,7 +260,7 @@ import {rest_ip} from "../router";
 
 				this.availableRoomNumbersList = []
 
-				alert("The booking has been created.")
+				alert("Room added to booking.")
 			},
 
 			reset() {
