@@ -3,7 +3,7 @@
 		<div id="nav">
 			<b-navbar toggleable="sm" type="light" variant="light">
 				<b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
-				<b-navbar-brand to="/">Hotel App</b-navbar-brand>
+				<b-navbar-brand to="/">Hotel App 2019</b-navbar-brand>
 				<b-collapse id="nav-text-collapse" is-nav>
 					<b-navbar-nav>
 						<b-nav-item to="/rack" v-if='logged'>Rack</b-nav-item>
